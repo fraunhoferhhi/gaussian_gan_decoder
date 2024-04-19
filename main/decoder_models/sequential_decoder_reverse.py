@@ -34,7 +34,7 @@ class SequentialDecoderReverse(nn.Module):
         self.scale_activation = torch.nn.Softplus()
 
     def activate_scale(self, scale):
-        return - self.scale_activation(scale + 5) - 2.5 # todo change back
+        return - self.scale_activation(scale + 5) - 2.5
 
     def forward(self, z, gan_camera_params, init_position, truncation_psi):
         ws = self.G.mapping(z, torch.zeros_like(gan_camera_params), truncation_psi=truncation_psi)

@@ -1,13 +1,8 @@
-import copy
 import numpy as np
 import torch
-import legacy
 import pickle
 
 from gaussian_renderer import render_simple
-from main.decoder_models.sequential_decoder import SequentialDecoder
-from main.decoder_utils.load_network import load_from_pkl_new_G
-from main.decoder_utils.target_dataloader import TargetDataloader
 from scene import GaussianModel, CustomCam
 
 

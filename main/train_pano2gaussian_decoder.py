@@ -11,21 +11,7 @@ import wandb
 
 sys.path.append("../")
 sys.path.append("../gaussian_splatting")
-sys.path.append("../eg3d")
-
 matplotlib.use("Qt5Agg")
-sys.path.append("/home/tmp/barthefl/projects/FullGANDecoder/gaussian_splatting")
-sys.path.append("/home/tmp/barthefl/projects/FullGANDecoder/main")
-sys.path.append("/home/tmp/barthefl/projects/FullGANDecoder/eg3d")
-
-sys.path.append("/home/tmp/barthefl/projects/FullGANDecoder")
-
-# sys.path.append("./")
-# sys.path.append("/home/fe/beckmann/CVGGaussianGANDecoder")
-# sys.path.append("/home/fe/beckmann/CVGGaussianGANDecoder/PanoHead")
-# sys.path.append("/home/fe/beckmann/CVGGaussianGANDecoder/gaussian_splatting")
-# sys.path.append("/home/fe/beckmann/CVGGaussianGANDecoder/main")
-
 
 from main.decoder_utils.camera import get_random_cam
 from main.loss_utils.id_loss import IDLoss
@@ -39,9 +25,6 @@ from main.decoder_utils.target_dataloader import TargetDataloader
 from main.decoder_utils.seed import set_seeds
 from main.loss_utils.sobel_loss import sobel_loss
 from main.loss_utils.lpips import perc, NvidiaVGG16
-from main.decoder_models.sequential_decoder import SequentialDecoder
-from main.decoder_models.parallel_decoder import ParallelDecoder
-from main.decoder_models.sequential_decoder_reverse import SequentialDecoderReverse
 from main.load_decoder import load_decoder
 
 @click.command()
@@ -58,7 +41,7 @@ from main.load_decoder import load_decoder
 @click.option("--sobel_weight", help="Weight for sobel loss", type=float, default=0.2, show_default=True)
 @click.option("--id_loss_weight", help="Weight for sobel loss", type=float, default=1.0, show_default=True)
 # decoder options
-@click.option("--generator_arch", help="[eg3d, panohead]", type=str, default="eg3d", show_default=True)
+@click.option("--generator_arch", help="[eg3d_ffhq, eg3d_lpff, eg3d_cats, panohead]", type=str, default="panohead", show_default=True)
 @click.option("--load_checkpoint", type=str, default="", show_default=True)
 @click.option("--decoder_type", help="[sequential, parallel, sequential_reversed]", type=str, default="sequential_reversed", show_default=True)
 @click.option("--use_pos_encoding", type=bool, default=False, show_default=True)
@@ -80,7 +63,7 @@ from main.load_decoder import load_decoder
 @click.option("--save_model_interval", type=int, default=25000, show_default=True)
 @click.option("--logging_interval", help="how often to log features", type=int, default=1000, show_default=True)
 @click.option("--group", help="Group for wandb logger", type=str, default="train_eg3d", show_default=True)
-@click.option("--disable_tqdm", type=bool, default=True, show_default=True)
+@click.option("--disable_tqdm", type=bool, default=False, show_default=True)
 @click.option("--use_wandb", type=bool, default=True, show_default=True)
 def main(
         seed,
@@ -137,10 +120,8 @@ def main(
         repeat_id=repeat_id,
     )
     device = "cuda:0"
-
-    # load / save paths
     os.makedirs("./results", exist_ok=True)
-
+    network_pkl = ""
     if generator_arch == "panohead":
         network_pkl = "../PanoHead/models/easy-khair-180-gpc0.8-trans10-025000.pkl"
         os.makedirs("./results/pano2gaussian", exist_ok=True)
@@ -148,7 +129,6 @@ def main(
         outdir = f"./results/pano2gaussian/run{run_name}_{number}"
         os.makedirs(outdir, exist_ok=True)
         sys.path.append("../PanoHead")
-        sys.path.append("/home/tmp/barthefl/projects/FullGANDecoder/PanoHead")
         vertical_std = 0.3
         horizontal_std = 1.0
         fov_offset = 5
@@ -168,7 +148,6 @@ def main(
         outdir = f"./results/eg3d/run{run_name}_{number}"
         os.makedirs(outdir, exist_ok=True)
         sys.path.append("../eg3d")
-        sys.path.append("/home/tmp/barthefl/projects/FullGANDecoder/eg3d")
         generator_arch = "eg3d"
         vertical_std = 0.2
         horizontal_std = 0.2
@@ -181,8 +160,13 @@ def main(
         wandb.init(project="GaussianHeadDecoder", dir=outdir, group=group, name=wandb_run_name)
     writer = SummaryWriter(log_dir=outdir)
 
-    # load / setup models
+    # import decoder models here since they depend on the sys path
+    from main.decoder_models.sequential_decoder import SequentialDecoder
+    from main.decoder_models.parallel_decoder import ParallelDecoder
+    from main.decoder_models.sequential_decoder_reverse import SequentialDecoderReverse
 
+    # load / setup models
+    assert network_pkl != "", f"invalid generator_arch: {generator_arch}"
     G = load_from_pkl_new_G(network_pkl, device, generator_arch)
     G_gaussian = copy.deepcopy(G).train().requires_grad_(True).to(device)
     if load_checkpoint != "":
@@ -214,7 +198,6 @@ def main(
             )
         else:
             raise NotImplementedError
-
 
         dataloader = TargetDataloader(
             G=G,
@@ -255,6 +238,7 @@ def main(
         viewpoint = CustomCam(size=512, fov=fov, extr=result.cam2world_pose[0])
         render_obj = render_simple(viewpoint, gaussians, bg_color=bg)
         image = render_obj["render"]
+        image = image[:3, ...]
         target = result.img[0]
 
         # apply mask
