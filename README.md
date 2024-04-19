@@ -1,7 +1,7 @@
 # Gaussian GAN Decoder
 
 
-Official implementation for: https://arxiv.org/abs/2404.10625
+Official implementation of: https://arxiv.org/abs/2404.10625
 
 Project page: https://florian-barthel.github.io/gaussian_decoder/index.html
 
@@ -77,3 +77,9 @@ switch between IDs. Using the gaussian_viewer, you can also export .ply files of
     primaryClass={cs.CV}
 }
 ```
+
+
+## Acknowledgements
+This research has partly been funded by the German Research Foundation (3DIL, grant no. 502864329), the European Union's 
+Horizon Europe research and innovation programme (Luminous, grant no. 101135724), and the German Ministry of Education 
+and Research (MoDL, grant no. 01IS20044).
