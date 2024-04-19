@@ -65,3 +65,15 @@ If the head is rendered upside down, change the Up-Vector in the Camera tab to (
 switch between IDs. Using the gaussian_viewer, you can also export .ply files of the current scene (Save / Save Ply)
 
 <img src="readme_files/example_gui.png" style="width: 600px">
+
+## Cite
+```text
+@misc{barthel2024gaussian,
+    title={Gaussian Splatting Decoder for 3D-aware Generative Adversarial Networks}, 
+    author={Florian Barthel and Arian Beckmann and Wieland Morgenstern and Anna Hilsmann and Peter Eisert},
+    year={2024},
+    eprint={2404.10625},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
+```
