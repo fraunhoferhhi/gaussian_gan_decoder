@@ -1,11 +1,10 @@
-name: eg-gs-decoder
+name: gs-decoder
 channels:
   - pytorch
   - nvidia
   - conda-forge
   - defaults
 dependencies:
-  # - cudatoolkit=11.8
   - plyfile
   - python=3.10
   - pip
@@ -24,8 +23,6 @@ dependencies:
   - scikit-learn
   - scikit-image
   - pip:
-    - imgui==1.4.1
-    - glfw
     - pyopengl
     - imageio-ffmpeg
     - pyspng
