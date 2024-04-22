@@ -1,6 +1,9 @@
 import numpy as np
 import torch
 import pickle
+import sys
+
+sys.path.append("../gaussian_splatting")
 
 from gaussian_renderer import render_simple
 from scene import GaussianModel, CustomCam

@@ -26,6 +26,7 @@ conda activate gs-decoder
 ```
 Download the face ID weights from [here ](https://drive.google.com/drive/folders/10nDj1GknLHFD6aBj7mxfS08QW5Azbg3T?usp=sharing)
 and place the whole folder under: _main/pretrained_models_
+
 ## Download Pre-trained GAN Models
 
 
