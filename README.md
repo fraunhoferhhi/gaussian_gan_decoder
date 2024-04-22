@@ -1,5 +1,6 @@
 # Gaussian GAN Decoder
 
+Accepted at [CVPRW](https://generative-vision.github.io/workshop-CVPR-24/)!
 
 Official implementation of: https://arxiv.org/abs/2404.10625
 
