@@ -10,12 +10,11 @@ from training.volumetric_rendering.renderer import sample_from_planes
 
 @persistence.persistent_class
 class ParallelDecoder(nn.Module):
-    def __init__(self, G, hidden_dim=128, use_xyz_embedding=True, use_gen_finetune=True, triplane_sr="None", device="cuda"):
+    def __init__(self, G, hidden_dim=128, use_xyz_embedding=True, use_gen_finetune=True, device="cuda"):
         super().__init__()
         self.hidden_dim = hidden_dim
         self.use_xyz_embedding = use_xyz_embedding
         self.use_gen_finetune = use_gen_finetune
-        self.triplane_sr = triplane_sr
         self.device = device
 
         position_dim = 3
@@ -56,8 +55,6 @@ class ParallelDecoder(nn.Module):
                 padding_mode="zeros",
                 box_warp=self.G.rendering_kwargs["box_warp"],
             )
-        if self.triplane_sr != "None":
-            plane_features = self.superres(synth["feature_planes"], ws)
         plane_features = plane_features[0]
 
         result = EasyDict()
@@ -91,7 +88,5 @@ class ParallelDecoder(nn.Module):
         
         if self.use_gen_finetune:
             params += list(self.G.parameters())
-        if self.triplane_sr != "None":
-            params += list(self.superres.parameters())
 
         return params

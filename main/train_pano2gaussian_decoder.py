@@ -6,16 +6,11 @@ import click
 import numpy as np
 import torch
 from tqdm import tqdm
-import matplotlib
 import wandb
-
-from eval import run_eval
 
 sys.path.append("../")
 sys.path.append("../gaussian_splatting")
-matplotlib.use("Qt5Agg")
 
-from main.decoder_utils.camera import get_random_cam
 from main.loss_utils.id_loss import IDLoss
 from torch.utils.tensorboard import SummaryWriter
 from main.decoder_utils.load_network import load_from_pkl_new_G
@@ -28,6 +23,8 @@ from main.decoder_utils.seed import set_seeds
 from main.loss_utils.sobel_loss import sobel_loss
 from main.loss_utils.lpips import perc, NvidiaVGG16
 from main.load_decoder import load_decoder
+from eval import run_eval
+
 
 @click.command()
 # training settings
@@ -48,7 +45,6 @@ from main.load_decoder import load_decoder
 @click.option("--decoder_type", help="[sequential, parallel, sequential_reversed]", type=str, default="sequential_reversed", show_default=True)
 @click.option("--use_pos_encoding", type=bool, default=False, show_default=True)
 @click.option("--use_gen_finetune", type=bool, default=True, show_default=True)
-@click.option("--triplane_sr", help="[None, 512, 1024]", type=str, default="None", show_default=True)
 @click.option("--hidden_dim", type=int, default=128, show_default=True)
 @click.option("--use_marching_cubes", type=bool, default=True, show_default=True)
 @click.option("--sample_from_cube", type=bool, default=True, show_default=True)
@@ -83,7 +79,6 @@ def main(
         decoder_type,
         use_pos_encoding,
         use_gen_finetune,
-        triplane_sr,
         hidden_dim,
         use_marching_cubes,
         sample_from_cube,
@@ -115,7 +110,6 @@ def main(
         decoder_type=decoder_type,
         use_pos_encoding=use_pos_encoding,
         use_gen_finetune=use_gen_finetune,
-        triplane_sr=triplane_sr,
         hidden_dim=hidden_dim,
         truncation=truncation,
         camera_sampling=camera_sampling,
@@ -180,7 +174,6 @@ def main(
                 use_xyz_embedding=use_pos_encoding,
                 hidden_dim=hidden_dim,
                 use_gen_finetune=use_gen_finetune,
-                triplane_sr=triplane_sr,
             )
         elif decoder_type == "sequential_reversed":
             decoder = SequentialDecoderReverse(
@@ -188,7 +181,6 @@ def main(
                 use_xyz_embedding=use_pos_encoding,
                 hidden_dim=hidden_dim,
                 use_gen_finetune=use_gen_finetune,
-                triplane_sr=triplane_sr,
             )
         elif decoder_type == "parallel":
             decoder = ParallelDecoder(
@@ -196,7 +188,6 @@ def main(
                 use_xyz_embedding=use_pos_encoding,
                 hidden_dim=hidden_dim,
                 use_gen_finetune=use_gen_finetune,
-                triplane_sr=triplane_sr,
             )
         else:
             raise NotImplementedError
