@@ -31,11 +31,11 @@ and place the whole folder under: _main/pretrained_models_
 ## Download Pre-trained GAN Models
 
 
-| Model    | Link                                                                                  | Target Path            |
-|----------|---------------------------------------------------------------------------------------|------------------------|
-| PanoHead | [link](https://drive.google.com/drive/folders/1m517-F1NCTGA159dePs5R5qj02svtX1_?usp=sharing)  | PanoHead/models/       |
-| EG3D     | [link](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/research/models/eg3d/files )          | eg3d/checkpoints/      |
-| LPFF     | [link](https://github.com/oneThousand1000/LPFF-dataset/tree/master/networks)                 | eg3d/checkpoints_lpff/ |
+| Model    | Link                                                                                  | File | Target Path            |
+|----------|---------------------------------------------------------------------------------------|-------|-----------------|
+| PanoHead | [link](https://drive.google.com/drive/folders/1m517-F1NCTGA159dePs5R5qj02svtX1_?usp=sharing)  | easy-khair-180-gpc0.8-trans10-025000.pkl | PanoHead/models/       |
+| EG3D     | [link](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/research/models/eg3d/files )     | ffhq512-128.pkl     | eg3d/checkpoints/      |
+| LPFF     | [link](https://github.com/oneThousand1000/LPFF-dataset/tree/master/networks)             |  var3-128.pkl  | eg3d/checkpoints_lpff/ |
 
 ## Start Training
 
