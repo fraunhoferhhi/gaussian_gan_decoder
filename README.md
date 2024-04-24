@@ -33,9 +33,9 @@ and place the whole folder under: _main/pretrained_models_
 
 | Model    | Link                                                                                  | Target Path            |
 |----------|---------------------------------------------------------------------------------------|------------------------|
-| PanoHead | https://drive.google.com/drive/folders/1m517-F1NCTGA159dePs5R5qj02svtX1_?usp=sharing  | PanoHead/models/       |
-| EG3D     | https://catalog.ngc.nvidia.com/orgs/nvidia/teams/research/models/eg3d/files           | eg3d/checkpoints/      |
-| LPFF     | https://github.com/oneThousand1000/LPFF-dataset/tree/master/networks                  | eg3d/checkpoints_lpff/ |
+| PanoHead | [link](https://drive.google.com/drive/folders/1m517-F1NCTGA159dePs5R5qj02svtX1_?usp=sharing)  | PanoHead/models/       |
+| EG3D     | [link](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/research/models/eg3d/files )          | eg3d/checkpoints/      |
+| LPFF     | [link](https://github.com/oneThousand1000/LPFF-dataset/tree/master/networks)                 | eg3d/checkpoints_lpff/ |
 
 ## Start Training
 
