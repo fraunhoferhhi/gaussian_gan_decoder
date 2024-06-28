@@ -6,8 +6,6 @@
 ./vscode/*
 **/__pycache__/**
 
-gaussian_splatting/submodules/*
-
 main/pretrained_models/**
 main/final_runs_hu
 main/results/*
