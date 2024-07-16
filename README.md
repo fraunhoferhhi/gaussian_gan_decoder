@@ -63,6 +63,10 @@ sys.path.append("/home/barthel/projects/CVGGaussianGANDecoder/PanoHead")
 sys.path.append("/home/barthel/projects/CVGGaussianGANDecoder/main")
 ```
 
+Then, launch `run_main.py` as with the --use_decoder flag:
+
+`run_main.py --data_path=path/to/pkl/file --use_decoder`
+
 If the head is rendered upside down, change the Up-Vector in the Camera tab to (0, 1, 0). Use the latent widget to 
 switch between IDs. Using the gaussian_viewer, you can also export .ply files of the current scene (Save / Save Ply)
 
