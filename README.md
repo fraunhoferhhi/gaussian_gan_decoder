@@ -50,11 +50,13 @@ You can find all training parameters as click.commands in train_pano2gaussian_de
 Download Pre-trained Gaussian GAN Decoder Models from [here](https://drive.google.com/drive/folders/1VPKdnHokjARTGpqrg98X6SXD3YZRMWjo?usp=drive_link).
 
 Our results can be rendered with our custom build 
-[gaussian_viewer](https://github.com/Florian-Barthel/gaussian_viewer).
-To do so, simply change the renderer from **GaussianRenderer** to **GaussianDecoderRenderer** in run_main.py and select 
-the .pkl file of the decoder model.
+[gaussian_viewer](https://github.com/Florian-Barthel/gaussian_viewer). Install the environment as described in the repository of the viewer and add the follwing three
+pip dependencies:
+- scikit-image
+- trimesh
+- ninja
 
-In order to load the GAN, you will also have to append the sys paths of this repository to the run_main.py like this:
+Also, append the sys paths of this repository to the run_main.py like this:
 
 ```python
 sys.path.append("/home/barthel/projects/CVGGaussianGANDecoder")
