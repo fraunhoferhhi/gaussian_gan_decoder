@@ -6,7 +6,7 @@ Official implementation of: https://arxiv.org/abs/2404.10625
 
 Project page: https://florian-barthel.github.io/gaussian_decoder/index.html
 
-<img src="readme_files/teaser.png" style="width: 700px;">
+<img src="readme_files/teaser.png">
 
 In this work, we present a novel approach that combines the high rendering quality of NeRF-based 3D-aware GANs with the 
 flexibility and computational advantages of 3DGS. By training a decoder that maps implicit NeRF representations to 
@@ -49,8 +49,8 @@ You can find all training parameters as click.commands in train_pano2gaussian_de
 ## Visualize Results
 Download Pre-trained Gaussian GAN Decoder Models from [here](https://drive.google.com/drive/folders/1VPKdnHokjARTGpqrg98X6SXD3YZRMWjo?usp=drive_link).
 
-Our results can be rendered with our custom build 
-[gaussian_viewer](https://github.com/Florian-Barthel/gaussian_viewer).
+Our results can be rendered with our custom build viewer
+[splatviz](https://github.com/Florian-Barthel/splatviz).
 To do so, simply change the renderer from **GaussianRenderer** to **GaussianDecoderRenderer** in run_main.py and select 
 the .pkl file of the decoder model.
 
@@ -63,10 +63,9 @@ sys.path.append("/home/barthel/projects/CVGGaussianGANDecoder/PanoHead")
 sys.path.append("/home/barthel/projects/CVGGaussianGANDecoder/main")
 ```
 
-If the head is rendered upside down, change the Up-Vector in the Camera tab to (0, 1, 0). Use the latent widget to 
-switch between IDs. Using the gaussian_viewer, you can also export .ply files of the current scene (Save / Save Ply)
+If the head is rendered upside down, flip the Up-Vector in the Camera tab. Use the latent widget to switch between IDs. Using splatviz, you can also export .ply files of the current scene.
 
-<img src="readme_files/example_gui.png" style="width: 600px">
+<img src="readme_files/splatviz_teaser_decoder.png">
 
 ## Cite
 ```text
