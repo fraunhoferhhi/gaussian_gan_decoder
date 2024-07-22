@@ -50,9 +50,11 @@ You can find all training parameters as click.commands in train_pano2gaussian_de
 Download Pre-trained Gaussian GAN Decoder Models from [here](https://drive.google.com/drive/folders/1VPKdnHokjARTGpqrg98X6SXD3YZRMWjo?usp=drive_link).
 
 Our results can be rendered with our custom build viewer
-[splatviz](https://github.com/Florian-Barthel/splatviz).
-To do so, simply change the renderer from **GaussianRenderer** to **GaussianDecoderRenderer** in run_main.py and select 
-the .pkl file of the decoder model.
+[splatviz](https://github.com/Florian-Barthel/splatviz). Install the environment as described in the repository of the viewer and add the following three
+pip dependencies:
+- scikit-image
+- trimesh
+- ninja
 
 In order to load the GAN, you will also have to append the sys paths of this repository to the run_main.py like this:
 
@@ -63,7 +65,12 @@ sys.path.append("/home/barthel/projects/CVGGaussianGANDecoder/PanoHead")
 sys.path.append("/home/barthel/projects/CVGGaussianGANDecoder/main")
 ```
 
-If the head is rendered upside down, flip the Up-Vector in the Camera tab. Use the latent widget to switch between IDs. Using splatviz, you can also export .ply files of the current scene.
+Then, launch `run_main.py` as with the --use_decoder flag:
+
+`run_main.py --data_path=path/to/pkl/file --use_decoder`
+
+If the head is rendered upside down, flip the Up-Vector in the Camera tab. Use the latent widget to 
+switch between IDs. Using the gaussian_viewer, you can also export .ply files of the current scene.
 
 <img src="readme_files/splatviz_teaser_decoder.png">
 
