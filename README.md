@@ -58,16 +58,13 @@ pip dependencies:
 
 In order to load the GAN, you will also have to append the sys paths of this repository to the run_main.py like this:
 
-```python
-sys.path.append("/home/barthel/projects/gaussian_gan_decoder")
-# sys.path.append("/home/barthel/projects/gaussian_gan_decoder/eg3d") # switch between EG3D and PanoHead
-sys.path.append("/home/barthel/projects/gaussian_gan_decoder/PanoHead")
-sys.path.append("/home/barthel/projects/gaussian_gan_decoder/main")
+
+
+Then, launch the `run_main.py` in the splatviz repository with the --mode=decoder flag as follows:
+
+```sh
+run_main.py --data_path=/folder/with/pkl/files --mode=decoder --ggd_path=/home/projects/gaussian_gan_decoder
 ```
-
-Then, launch the `run_main.py` in the splatviz repository with the --use_decoder flag as follows:
-
-`run_main.py --data_path=path/to/pkl/file --use_decoder`
 
 If the head is rendered upside down, flip the Up-Vector in the Camera tab. Use the latent widget to 
 switch between IDs. Using the gaussian_viewer, you can also export .ply files of the current scene.
